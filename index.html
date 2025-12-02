@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Something Special 💕</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Recording Consent Modal -->
+  <div id="consentModal" class="modal">
+    <div class="modal-content">
+      <div class="heart-animation">💕</div>
+      <h2>Something Magical Awaits...</h2>
+      <p>This experience was specially created for you, Bachuu! 🌟</p>
+      <p>To capture this special moment, I'd love to record your reactions. May I have your permission to use your camera?</p>
+      <p class="small-text">This will only be visible to me, and you can stop it anytime.</p>
+      <button id="consentYes" class="btn-primary">Yes, Let's Do This! 💖</button>
+      <button id="consentNo" class="btn-secondary">Maybe Later</button>
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <div id="mainContainer" style="display: none;">
+    <!-- Welcome Screen -->
+    <section id="welcomeScreen" class="screen active">
+      <div class="floating-hearts"></div>
+      <h1 class="title-animation">Hey Bachuu! 💕</h1>
+      <p class="subtitle">I made something special just for you...</p>
+      <p class="hint">Complete the mini-games to unlock our beautiful moments together 🎮✨</p>
+      <button class="btn-start" onclick="startJourney()">Begin Our Journey 💖</button>
+    </section>
+
+    <!-- Game 1: Love Quiz -->
+    <section id="game1Screen" class="screen">
+      <div class="game-container">
+        <h2>Game 1: How Well Do You Know Us? 💭</h2>
+        <div id="quizContent">
+          <div class="question">
+            <p id="questionText">What's your favorite thing about us?</p>
+            <div class="quiz-options">
+              <button class="option-btn" onclick="answerQuiz(0)">Our conversations 💬</button>
+              <button class="option-btn" onclick="answerQuiz(1)">Our laughter 😄</button>
+              <button class="option-btn" onclick="answerQuiz(2)">Our understanding 🤝</button>
+              <button class="option-btn" onclick="answerQuiz(3)">Everything! 💕</button>
+            </div>
+          </div>
+        </div>
+        <div id="game1Result" style="display: none;">
+          <h3>✨ Perfect! ✨</h3>
+          <p>You unlocked our first special moment!</p>
+          <button class="btn-primary" onclick="showPhoto(1)">See Photo 💖</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Photo 1 Display -->
+    <section id="photo1Screen" class="screen">
+      <div class="photo-container">
+        <div class="photo-frame">
+          <img src="images/photo1.png" alt="Our Special Moment" id="photo1">
+          <p class="photo-caption">
+  Our Beautiful Journey Begins... 💕<br>
+  <small style="opacity: 0.8; font-size: 14px;">
+    Since we don't have photos together yet, I created this with AI to imagine our special moments ✨
+  </small>
+</p>
+        </div>
+        <button class="btn-primary" onclick="showGame(2)">Continue to Next Game 🎮</button>
+      </div>
+    </section>
+
+    <!-- Game 2: Memory Match -->
+    <section id="game2Screen" class="screen">
+      <div class="game-container">
+        <h2>Game 2: Match Our Moments 🎴</h2>
+        <p>Find all the matching pairs!</p>
+        <div class="memory-grid" id="memoryGrid"></div>
+        <div id="game2Result" style="display: none;">
+          <h3>✨ Amazing! ✨</h3>
+          <p>You unlocked our second special moment!</p>
+          <button class="btn-primary" onclick="showPhoto(2)">See Photo 💖</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Photo 2 Display -->
+    <section id="photo2Screen" class="screen">
+      <div class="photo-container">
+        <div class="photo-frame">
+          <img src="images/photo2.png" alt="Our Special Moment" id="photo2">
+          <p class="photo-caption">
+  Every Moment with You is Magic ✨<br>
+  <small style="opacity: 0.8; font-size: 14px;">
+    AI-crafted to show how I envision us together 💭💕
+  </small>
+</p>
+        </div>
+        <button class="btn-primary" onclick="showProposal()">Something More... 💕</button>
+      </div>
+    </section>
+
+    <!-- Proposal Screen -->
+    <section id="proposalScreen" class="screen">
+      <div class="proposal-container">
+        <div class="floating-hearts-big"></div>
+        <h2 class="proposal-title">Bachuu...</h2>
+        <p class="proposal-text">
+          We don't know what's gonna happen in the future but we can still manifest it.
+        </p>
+        <p class="proposal-question">
+          So, Will you be my partner for life? 💍
+        </p>
+        <div class="proposal-buttons">
+          <button class="btn-yes" onclick="answerProposal('yes')">Yes! 💕</button>
+          <button class="btn-no" id="noBtn" onclick="answerProposal('no')">No</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final Photo (Yes Answer) -->
+    <section id="photo3Screen" class="screen">
+      <div class="photo-container celebration">
+        <div class="confetti"></div>
+        <h2 class="celebration-title">You Made Me The Happiest! 🎉💕</h2>
+        <div class="photo-frame">
+          <img src="images/photo3.png" alt="Our Forever" id="photo3">
+          <p class="photo-caption">
+  Our Forever Starts Now... 💖✨<br>
+  <small style="opacity: 0.8; font-size: 14px;">
+    Created with AI to visualize the beautiful future we'll create together 🌟
+  </small>
+</p>
+        </div>
+        <p class="final-message">I love you, Bachuu! 💕</p>
+      </div>
+    </section>
+
+    <!-- Heartbreak Screen (No Answer) -->
+    <section id="heartbreakScreen" class="screen">
+      <div class="heartbreak-container">
+        <div class="broken-heart">💔</div>
+        <h2>You Broke My Heart...</h2>
+        <p>But I'll always cherish our moments together 😢</p>
+        <p class="locked-message">The final photo remains locked forever...</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- Video Preview (for you) -->
+  <div id="videoPreview" style="display: none;">
+    <video id="recordedVideo" autoplay muted playsinline></video>
+    <div class="recording-indicator">🔴 Recording</div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

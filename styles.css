@@ -1,0 +1,585 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Modal Styles */
+.modal {
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.5s;
+}
+
+.modal-content {
+  background: linear-gradient(135deg, #ff6b9d 0%, #c06c84 100%);
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  max-width: 500px;
+  margin: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.6s ease-out;
+}
+
+.heart-animation {
+  font-size: 80px;
+  animation: heartBeat 1.5s infinite;
+}
+
+.modal-content h2 {
+  color: white;
+  margin: 20px 0;
+  font-size: 28px;
+}
+
+.modal-content p {
+  color: rgba(255, 255, 255, 0.95);
+  margin: 15px 0;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+.small-text {
+  font-size: 13px !important;
+  opacity: 0.8;
+  margin-top: 10px !important;
+}
+
+.btn-primary, .btn-secondary {
+  padding: 15px 35px;
+  margin: 10px;
+  border: none;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid white;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Screen Management */
+.screen {
+  display: none;
+  min-height: 100vh;
+  padding: 40px 20px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.screen.active {
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 0.8s;
+}
+
+/* Welcome Screen */
+.floating-hearts {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.floating-hearts::before,
+.floating-hearts::after {
+  content: '💕';
+  position: absolute;
+  font-size: 40px;
+  animation: float 8s infinite;
+}
+
+.floating-hearts::before {
+  left: 20%;
+  animation-delay: 0s;
+}
+
+.floating-hearts::after {
+  content: '💖';
+  left: 70%;
+  animation-delay: 4s;
+}
+
+.title-animation {
+  font-size: 60px;
+  color: white;
+  margin-bottom: 20px;
+  animation: bounceIn 1s;
+  text-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.subtitle {
+  font-size: 24px;
+  color: rgba(255, 255, 255, 0.95);
+  margin-bottom: 20px;
+  animation: fadeIn 1.5s;
+}
+
+.hint {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 40px;
+  animation: fadeIn 2s;
+}
+
+.btn-start {
+  padding: 20px 50px;
+  font-size: 20px;
+  background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  animation: pulse 2s infinite;
+}
+
+.btn-start:hover {
+  transform: scale(1.1);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Game Container */
+.game-container {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 40px;
+  border-radius: 20px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.6s;
+}
+
+.game-container h2 {
+  color: #667eea;
+  margin-bottom: 30px;
+  font-size: 32px;
+}
+
+/* Quiz Game */
+.question {
+  margin: 30px 0;
+}
+
+#questionText {
+  font-size: 22px;
+  color: #333;
+  margin-bottom: 25px;
+  font-weight: 500;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.option-btn {
+  padding: 18px;
+  font-size: 18px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.option-btn:hover {
+  transform: translateX(10px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+/* Memory Game */
+.memory-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin: 30px 0;
+}
+
+.memory-card {
+  aspect-ratio: 1;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.memory-card.flipped {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  transform: rotateY(180deg);
+}
+
+.memory-card.matched {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+/* Photo Display */
+.photo-container {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 40px;
+  border-radius: 20px;
+  max-width: 700px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.6s;
+}
+
+.photo-frame {
+  border: 8px solid transparent;
+  border-image: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  border-image-slice: 1;
+  border-radius: 15px;
+  overflow: hidden;
+  margin-bottom: 25px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.photo-frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+  animation: zoomIn 0.8s;
+}
+
+.photo-caption {
+  font-size: 22px;
+  color: #667eea;
+  margin-top: 20px;
+  font-style: italic;
+  font-weight: 500;
+}
+
+/* Proposal Screen */
+.proposal-container {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 60px 40px;
+  border-radius: 20px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.6s;
+  position: relative;
+  overflow: hidden;
+}
+
+.floating-hearts-big {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.floating-hearts-big::before,
+.floating-hearts-big::after {
+  content: '💕';
+  position: absolute;
+  font-size: 60px;
+  opacity: 0.3;
+  animation: float 6s infinite;
+}
+
+.floating-hearts-big::before {
+  top: 10%;
+  left: 10%;
+}
+
+.floating-hearts-big::after {
+  content: '💖';
+  top: 20%;
+  right: 10%;
+  animation-delay: 3s;
+}
+
+.proposal-title {
+  font-size: 48px;
+  color: #667eea;
+  margin-bottom: 30px;
+  animation: heartBeat 1.5s infinite;
+}
+
+.proposal-text {
+  font-size: 20px;
+  color: #333;
+  margin: 25px 0;
+  line-height: 1.7;
+}
+
+.proposal-question {
+  font-size: 26px;
+  color: #f5576c;
+  margin: 35px 0;
+  font-weight: bold;
+  animation: pulse 2s infinite;
+}
+
+.proposal-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.btn-yes, .btn-no {
+  padding: 20px 50px;
+  font-size: 22px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.btn-yes {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+}
+
+.btn-yes:hover {
+  transform: scale(1.15);
+  box-shadow: 0 12px 35px rgba(79, 172, 254, 0.5);
+}
+
+.btn-no {
+  background: linear-gradient(135deg, #ee9ca7 0%, #ffdde1 100%);
+  color: #666;
+}
+
+.btn-no:hover {
+  animation: shake 0.5s;
+}
+
+/* Celebration (Final Photo) */
+.celebration {
+  position: relative;
+}
+
+.confetti {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.confetti::before,
+.confetti::after {
+  content: '🎉';
+  position: absolute;
+  font-size: 50px;
+  animation: confettiFall 3s infinite;
+}
+
+.confetti::before {
+  left: 20%;
+  animation-delay: 0s;
+}
+
+.confetti::after {
+  content: '✨';
+  right: 20%;
+  animation-delay: 1.5s;
+}
+
+.celebration-title {
+  color: #667eea;
+  font-size: 36px;
+  margin-bottom: 30px;
+  animation: bounceIn 1s;
+}
+
+.final-message {
+  font-size: 28px;
+  color: #f5576c;
+  margin-top: 25px;
+  font-weight: bold;
+  animation: heartBeat 1.5s infinite;
+}
+
+/* Heartbreak Screen */
+.heartbreak-container {
+  background: rgba(0, 0, 0, 0.85);
+  padding: 60px 40px;
+  border-radius: 20px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  animation: fadeIn 0.8s;
+}
+
+.broken-heart {
+  font-size: 100px;
+  margin-bottom: 30px;
+  animation: heartBreak 2s;
+}
+
+.heartbreak-container h2 {
+  color: #ff6b9d;
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.heartbreak-container p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 20px;
+  margin: 15px 0;
+}
+
+.locked-message {
+  font-style: italic;
+  opacity: 0.6;
+  margin-top: 30px !important;
+}
+
+/* Video Preview (hidden for user) */
+#videoPreview {
+  position: fixed;
+  bottom: -200px;
+  right: -200px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0.01;
+}
+
+#recordedVideo {
+  width: 1px;
+  height: 1px;
+}
+
+.recording-indicator {
+  display: none;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounceIn {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes heartBeat {
+  0%, 100% { transform: scale(1); }
+  10%, 30% { transform: scale(1.1); }
+  20%, 40% { transform: scale(0.95); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.9; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes confettiFall {
+  0% { transform: translateY(-50px) rotate(0deg); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+@keyframes heartBreak {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3) rotate(10deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .title-animation { font-size: 40px; }
+  .subtitle { font-size: 18px; }
+  .hint { font-size: 14px; }
+  .btn-start { padding: 15px 35px; font-size: 16px; }
+  .game-container { padding: 25px; }
+  .game-container h2 { font-size: 24px; }
+  .memory-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .proposal-buttons { flex-direction: column; }
+  .btn-yes, .btn-no { width: 100%; }
+  .photo-container, .proposal-container { padding: 30px 20px; }
+}
